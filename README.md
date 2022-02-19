@@ -1,123 +1,170 @@
-# candymachine-v2-boiler-mint-site-noFLP
+# Introduction
 
-![The Boiler Plate](https://github.com/tonyboylehub/candymachine-v2-boiler-mint-site-noFLP/blob/228e97fc6935153fefcf4f3033b0686f852a9e44/doc-resources/The-Boiler-Plate.png)
+The **Candy-Machine-V2-Responsive-UI** project is a fork of the famous [Candy-Machine-Mint](https://github.com/exiled-apes/candy-machine-mint) upgraded to support the recent **Candy Machine V2** new functionalities : (pre-sale, spl-token to mint, etc...)
+But that's not all, I share with you a **Prod-ready Responsive UI** which can be easily customized in 5mn.
 
-This is a stripped out Metaplex FLP site from the Metaplex repo at https://github.com/metaplex-foundation/metaplex
-This was built upon version v1.1.0
+![Candy Machine Preview Image](https://i.imgur.com/WWSvkBO.png)
 
-Donations can be made at tonyboyle.sol if you are feeling generous!
+### Supported Wallets
 
+![Supported Wallets](https://i.ibb.co/DC6Wt66/wallets.png)
 
-# Installation
+For instructions on how to set up a V2 candy machine, please refer to Metaplex's documentation [here](https://docs.metaplex.com/candy-machine-v2/Introduction)
 
-1. Clone the repo from the url below.
+## One-Click Vercel Deployment
 
-	```git clone https://github.com/tonyboylehub/candymachine-v2-boiler-mint-site-noFLP.git```
+One-click solution to clone this project to your GitHub and deploy the prod package on a Vercel.
+Your only task will be to customize your GitHub fork of this project and commit updates.
+Vercel will automatically deploy new prod packages for each new commit.
 
-2. Open a terminal in the root of the cloned repo and run yarn install to install all the required dependencies
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FFulgurus%2Fcandy-machine-v2-responsive-ui&env=REACT_APP_CANDY_MACHINE_ID,REACT_APP_SOLANA_NETWORK,REACT_APP_SOLANA_RPC_HOST&envDescription=Populate%20REACT_APP_CANDY_MACHINE_ID%20with%20your%20candy%20machine%20public%20key%2C%20REACT_APP_SOLANA_NETWORK%20with%20the%20solana%20network%20(devnet%2Fmainnet-beta)%20and%20REACT_APP_SOLANA_RPC_HOST%20with%20the%20RPC%20URL%20(example%20for%20devnet%20%3A%20https%3A%2F%2Fapi.devnet.solana.com)&envLink=https%3A%2F%2Fdocs.solana.com%2Fcluster%2Frpc-endpoints%23mainnet-beta&demo-title=My%20Demo%20Mint%20Page&demo-description=A%20one-click%20generated%20solana%20minting%20responsive%20website.&demo-url=https%3A%2F%2Fwww.mintgatsbyclub.net%2F&demo-image=https%3A%2F%2Fi.imgur.com%2FWWSvkBO.png)
 
-	```yarn install```
+## Getting Set Up
 
-3. Rename `.env-example` to `.env` and fill it with your own data variables.
+### Prerequisites
 
+**REQUIRE NODEJS VERSION <= 16 (version 17 not supported)**.
 
-4. Run yarn start and all should pop up.
+* Download a Code Editor such as Visual Studio Code.
 
-	```yarn start```
+* Ensure you have both `nodejs` and `yarn` installed. `nodejs` recommended version is 16.
 
----
+* Follow the instructions [here](https://docs.solana.com/cli/install-solana-cli-tools) to install the Solana Command Line Toolkit.
 
-You will need some basic html and css knowledge to get somewhere with this boilerplate. While I kept React components to a minimum where possible in order to help the new people in the web3 space you'll still need some basic web dev knowledge to make major adjustments. Good places to start are sites like https://www.w3schools.com/ and checking out their HTML and CSS tutorials. You shouldn't need any JS to get this up and running.
+* Follow the instructions [here](https://hackmd.io/@levicook/HJcDneEWF) to install the Metaplex Command Line Utility.
+  * Installing the Command Line Package is currently an advanced task that will be simplified eventually.
 
-The site is mobile ready in the sense that it has a mobile menu and some preset anchor links. You'll need to dive through the code to adjust all these to your liking in both the standard nav and the mobile nav.
+### Installation
 
-## Notice!
-There seems to be an error with CandymachineV2 and the captcha that won't allow whitelist tokens to be spent while the Gatekeeper is on in the candymachine config and the start date is in the future (whistlist presale mode). I think this is an issue the candymachine itself and the way it deals with its own captcha process. You'll have to have captcha turned off during whitelist/presale and then turn it back on if you want to use it for public sale.
+#### 1. Fork the project & clone it. Example:
 
+```
+git clone https://github.com/Fulgurus/candy-machine-v2-responsive-ui.git
+```
 
-# Customising
+#### 2. Define your environment variables (.env file)
 
-### Site Editing
-There are 3 main areas to focus on editing and they are;
+Rename the `.env.example` file at the root directory to `.env` and update the following variables in the `.env` file:
 
- **Site Design** - `src/app.tsx`<br/>
-All the HTML is located here and includes navigation, mobile menus. You'll need basic HTML knowledge to look through this and adjust the text and images.
+```
+REACT_APP_CANDY_MACHINE_ID=__PLACEHOLDER__
+```
+set __PLACEHOLDER__ with the candy machine pubkey you get once you upload & create your candy machine in Metaplex project. You can find back the value from the `.cache/temp.json` file of your Metaplex project. This file is created when you run the `ts-node candy-machine-v2-cli.ts upload ...` command.
 
-**Site Style** - `src/userCSS.css`<br/>
-I've moved all the main colors and styling into CSS variables into this file to make everything accessible in one area for new people.
+```
+REACT_APP_SOLANA_NETWORK=devnet
+```
 
-If you are more comfortable with css then head over to `src/app.css` 
+This identifies the Solana network you want to connect to. Options are `devnet`, `testnet`, and `mainnet`.
 
- **User Settings** - `src/userSettings.tsx`<br/>
-These are the user settings that can display some custom elements on the MintUI and also handle the date logic for showing each of the 3 phases of the MintUI.
+```
+REACT_APP_SOLANA_RPC_HOST=https://api.devnet.solana.com
+```
 
-	Welcome-> WhiteList Mint(*if enabled*) -> Public Mint
-
-Please pay attention to the dates for each section as this determines how the MintUI is rendered and also if the mint button is enabled.
-
-# 3 Phase MintUI
-There are 3 phases to the minting UI.
-
-``Welcome -> Whitelist(optional) ->Public Mint``
-
-To set this correctly you have to set your dates up correctly in the `userSettings.tsx` as well as various other settings such as custom Title, custom description, and even under each phase I've left a little React component that has a marked HTML area for each phase that will inject into the mintUI box.
-
-### Welcome Phase
-This is enabled when both the Whitelist Phase and PublicMint start dates are currently not active.
-
-### Whitelist Phase
-This will be enabled when the Whitelist Phase dates are met and active. You can optionally turn this off and set the dates into the past if you do not wish to use whitelist. Make sure your Whitelist phase end date is set to time out before the PublicMint startdate begins.
-
-### Public mint stage
-Set the start date as the same date as your CandyMachine this will trigger the UI of PublicMint stage.
-
-# WhiteListing
-While the UI has a whitelisting function you still need to set up your candy machine for whitelisting for it to be effect. You'll need to have your SLP tokens set up other wise you won't be able to whitelist mint with your candymachine in the off state.
-
-PLEASE NOTE - My UI has no effect on the actual whitelist itself, it's just enabling a UI and enabling a button allowing people to connect to candy machine. You CandyMachine v2 has to be set up 100% correctly with SLP token whitelist for the whitelist function to work as expect.
-
-For white listing you need create your own SLP token. With whitelisting enabled on the Candy Machine v2 you set your custom SLP token address and update it to the Candy Machine. When ever someone visits your Candy Machine and holds on of your SLP tokens they can mint an item wether your Candy Machine v2 is live or not.
-
-# Countdowns
-My countdowns work slightly different, the countdowns count to the **END** of the current phase. Not the start of something else.
-
-So if Whitelist starts on 25th January you would actually set the Welcome phase to end on 25th January and countdown to that date.
-
-Subsequently if turn the countdown on in the WhiteList phase then it would countdown to the Whitelist end date. This is so people can have countdowns to whitelist ending if they are not directly leading into a public phase after.
-
-# Minting Panic
-There is a mintingPanic option availbe in user settings. If for what ever reason you are experiance a technical issue during launch or for what ever reason you need it turning the mintingPanic to true will disbale all minting on the UI and provide a message of your choice.
-
-# Update Log
-
-v1.2.1 Update
-- Fixed some build warnings that were not playing well with Vercel deployment that caused a deployment error.
-- Fixed some logic
-
-v1.2 update
-
-- Added whitelist token counting and mint eligibility. App will check wallet for the whitelist token set in your candy machine config.json white list settings and show the user how many mints they are able to make during whitelist.
-
-- Added Mint panic function to user settings. 
-This will disable minting UI on the Front End in one setting and display a custom message. Useful is minting isn't quite going to plan due to network errors or such.
-
-- Stripped out all final remains of Metaplex FLP.
-
-- Removed Antirug.
-
-- Removed Confetti files and dependencies from files. Wasn't connected to anything to start with.
-
-- Added nearly all styling varibles to userCSS.css.
-Use this area to color your site and change different options. Good for beginners as things are clearly labeled.
-For more advaned users head over to app.css
-
-- Removed the disconnected and connected phases that would show different content in the MintUI based on if your wallet was connected or not. This was confusing and I've now opted for a single display for each stage.
-
-- Added custom user HTML options for the 3 phases of the Minting UI including Welcome, Whitelist Minting, and Public Sale. The custom HTML will appear in the box if enabled based on each stage. Please be careful to keep your html without the comment markers unless you know what you are doing.
-
-- Added a few more user settings.
-
-- Restyled The Mint UI box.
----
+This identifies the RPC server your web app will access the Solana network through.
 
 
+If you are using a custom SPL Token to MINT, you have two additional environment parameters to set :
+
+
+```
+REACT_APP_SPL_TOKEN_TO_MINT_NAME=
+```
+
+Spl-token name to display next the price.
+
+```
+REACT_APP_SPL_TOKEN_TO_MINT_DECIMALS=9
+```
+
+Spl-token decimals were defined during its creation with --decimals parameter. If you didn't use that parameter, then by default your SPL Token got 9 decimals.
+
+More info about it there : https://spl.solana.com/token
+
+#### 3. Build the project and test. Go to the root project directory and type the commands :
+
+To install dependencies :
+
+```
+yarn install
+```
+
+To test the app locally in the development mode (localhost:3000) :
+
+```
+yarn start
+```
+
+To build the production package (generated in build folder of the project) :
+
+```
+yarn build
+```
+
+#### 4. Customize the website UI :
+
+##### 4.1 `App.css` : update 5 main CSS variables with your custom colors :
+
+```
+:root {
+  --main-background-color: #343A50;
+  --card-background-color: #51576D;
+  --card-background-lighter-color: #7A7F92;
+  --main-text-color:#F7F6F4;
+  --title-text-color:#3CBA8B;
+}
+```
+
+##### 4.2 `public` folder :
+
+- Update existing demo cool cats images (cool-cats.gif, logo.png) with your owns images in project `public` folder. Make sure to name them identically.
+- Add your custom website title in `index.html` : `<title>Mint Page</title>`
+
+##### 4.3 `Home.tsx` :
+
+Scroll down down to line 380 (`return <main> [...]`) and start to update all titles/menu/text/images/text... as wished in the whole React HTML block.
+
+That's it ! Enjoy your beautiful candy machine :)
+
+##  Available Commands Recap :
+
+### `yarn start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+### `yarn test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `yarn build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `yarn eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Need Help ?
+
+You can contact me directly on Discord : BloodSpilll#9625
+
+## To thank me with a small SOL tip :]
+
+`58SevvhmaN4SfCop2HkepAWyM5zykr7Afiv91PAAfPqR`
